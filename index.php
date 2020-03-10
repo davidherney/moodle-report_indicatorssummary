@@ -49,15 +49,18 @@ $generaluserheader = array('id','username', 'firstname' , 'lastname');
 
 echo $OUTPUT->header();
 flush();
-echo $OUTPUT->heading( "Reporte de curso [id:$courseid]" );
+echo $OUTPUT->heading( "Reporte de curso " . $course->fullname );
 echo $OUTPUT->box_start();
 
-echo "<strong>Mensajes recibidos y enviados por cada usuario del sitio.</strong><br>";
+if ($courseid == SITEID) {
 
-echo generate_table(
-    array_merge( $generaluserheader, array( 'inc_messages','out_messages' ) ),
-    $indicators->generate_report( $indicators->get_all_users() )
-);
+    echo "<strong>Mensajes recibidos y enviados por cada usuario del sitio.</strong><br>";
+
+    echo generate_table(
+        array_merge( $generaluserheader, array( 'inc_messages','out_messages' ) ),
+        $indicators->generate_report( $indicators->get_all_users() )
+    );
+}
 
 echo "<br><br><strong>Estudiantes que han ingresado al menos una vez al curso.</strong><br>";
 echo generate_table(
